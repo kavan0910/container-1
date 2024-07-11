@@ -1,0 +1,4 @@
+com/kavankumar/ms1/Ms1Application.class
+com/kavankumar/ms1/controller/Ms1Controller.class
+com/kavankumar/ms1/request/CalculateRequest.class
+com/kavankumar/ms1/request/Request.class

@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: pv-1
+spec:
+  capacity:
+    storage: 10Gi
+  storageClassName: standard
+  accessModes:
+  - ReadWriteOnce
+  gcePersistentDisk:
+    pdName: compute-disk
+    fsType: ext4
+
+---
+
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-1
+spec:
+  volumeName: pv-1
+  accessModes:
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: standard
+  selector:
+    matchLabels:
+      name: pv-1
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-1
+  labels:
+    app: app-1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: app-1
+  template:
+    metadata:
+      labels:
+        app: app-1
+    spec:
+      containers:
+      - name: app-1
+        imagePullPolicy: IfNotPresent
+        image: us-central1-docker.pkg.dev/kube-assignment-428815/cloud-k8s-repository/app-1:latest
+        ports:
+        - containerPort: 80
+        volumeMounts:
+        - name: app1-data
+          mountPath: /app/kavan/files
+      volumes:
+      - name: app1-data
+        persistentVolumeClaim:
+          claimName: pvc-1
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-1
+spec:
+  selector:
+    app: app-1
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: LoadBalancer
