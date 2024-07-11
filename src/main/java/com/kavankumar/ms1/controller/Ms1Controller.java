@@ -21,7 +21,7 @@ public class Ms1Controller {
 
     @PostMapping("/store-file")
         public ResponseEntity<Map<String, String>> storeFile(@RequestBody Map<String, String> request) {
-        final String STORAGE_LOCATION = "./kavan/files/";
+        final String STORAGE_LOCATION = "./app/kavan/files/";
         String fileName = request.get("file");
         String data = request.get("data");
 
@@ -40,7 +40,9 @@ public class Ms1Controller {
 
     @PostMapping("/calculate")
     public ResponseEntity<Map<String, Object>> calculate(@RequestBody Map<String, String> request) {
-        final String STORAGE_LOCATION = "./kavan/files/";
+//        final String STORAGE_LOCATION = "./kavan/files/";
+        final String STORAGE_LOCATION = "./";
+
         String fileName = request.get("file");
         String product = request.get("product");
 
@@ -53,7 +55,7 @@ public class Ms1Controller {
             return new ResponseEntity<>(Map.of("file", fileName, "error", "File not found."), HttpStatus.NOT_FOUND);
         }
         RestTemplate restTemplate = new RestTemplate();
-        Map<String,Object> response = restTemplate.postForObject("http://service-2:6000/sum", request, Map.class);
+        Map<String,Object> response = restTemplate.postForObject("http://localhost:6000/sum", request, Map.class);
 
         return ResponseEntity.ok(response);
     }
