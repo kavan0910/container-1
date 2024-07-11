@@ -62,7 +62,7 @@ public class Ms1Controller {
             RestTemplate restTemplate = new RestTemplate();
             System.out.println(request);
             System.out.println("Sending request to service-2.");
-            Map<String, Object> response = restTemplate.postForObject("https://service-2:6000/sum", request, Map.class);
+            Map<String, Object> response = restTemplate.postForObject("http://service-2:6000/sum", request, Map.class);
             System.out.println("Response from service-2: " + response);
             return response;
 
@@ -70,7 +70,7 @@ public class Ms1Controller {
         catch (Exception e) {
             Map<String, Object> map = new HashMap<>();
             map.put("file", request.getFile());
-            map.put("error", "File not found.");
+            map.put("error", "Input file not in CSV format.");
             return map;
         }
     }
