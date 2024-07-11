@@ -52,6 +52,13 @@ public class Ms1Controller {
         final String STORAGE_LOCATION = "/app/kavan/files/";
 
         try {
+            if(request.getFile() == null) {
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("file", request.getFile());
+                map.put("error", "Invalid JSON input.");
+                return map;
+            }
+
             BufferedReader csv_file = new BufferedReader(new FileReader(STORAGE_LOCATION + request.getFile()));
             if (!isCSVFormat(STORAGE_LOCATION + request.getFile(), ',')) {
                 HashMap<String, Object> map = new HashMap<>();
