@@ -48,7 +48,7 @@ spec:
     spec:
       containers:
       - name: app-1
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         image: us-central1-docker.pkg.dev/kube-assignment-428815/cloud-k8s-repository/app-1:latest
         ports:
         - containerPort: 80
