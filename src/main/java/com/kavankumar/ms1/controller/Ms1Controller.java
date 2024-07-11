@@ -40,8 +40,8 @@ public class Ms1Controller {
 
     @PostMapping("/calculate")
     public ResponseEntity<Map<String, Object>> calculate(@RequestBody Map<String, String> request) {
-//        final String STORAGE_LOCATION = "./kavan/files/";
-        final String STORAGE_LOCATION = "./";
+        final String STORAGE_LOCATION = "./app/kavan/files/";
+//        final String STORAGE_LOCATION = "./";
 
         String fileName = request.get("file");
         String product = request.get("product");
