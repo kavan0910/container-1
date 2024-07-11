@@ -20,14 +20,15 @@ public class Ms1Controller {
 //    public Map<String, String> storeFile(@RequestBody Request request) {
 
     @PostMapping("/store-file")
-        public ResponseEntity<Map<String, String>> storeFile(@RequestBody Map<String, String> request) {
-        final String STORAGE_LOCATION = "./app/kavan/files/";
-        String fileName = request.get("file");
-        String data = request.get("data");
+        public ResponseEntity<Map<String, String>> storeFile(Request request) {
+        final String STORAGE_LOCATION = "/app/kavan/files/";
+        String fileName = request.getFile();
+        String data = request.getData();
 
-        if (fileName == null || fileName.isEmpty()) {
+        if(request.getFile() == null || request.getData() == null) {
             return new ResponseEntity<>(Map.of("file", null, "error", "Invalid JSON input."), HttpStatus.BAD_REQUEST);
         }
+
 
         File file = new File(STORAGE_LOCATION + fileName);
         try (FileWriter writer = new FileWriter(file)) {
@@ -39,14 +40,14 @@ public class Ms1Controller {
     }
 
     @PostMapping("/calculate")
-    public ResponseEntity<Map<String, Object>> calculate(@RequestBody Map<String, String> request) {
-        final String STORAGE_LOCATION = "./app/kavan/files/";
+    public ResponseEntity<Map<String, Object>> calculate(CalculateRequest request) {
+        final String STORAGE_LOCATION = "/app/kavan/files/";
 //        final String STORAGE_LOCATION = "./";
 
-        String fileName = request.get("file");
-        String product = request.get("product");
+        String fileName = request.getFile();
+        String product = request.getProduct();
 
-        if (fileName == null || fileName.isEmpty() || product == null || product.isEmpty()) {
+        if(request.getFile() == null || request.getProduct() == null) {
             return new ResponseEntity<>(Map.of("file", null, "error", "Invalid JSON input."), HttpStatus.BAD_REQUEST);
         }
 
