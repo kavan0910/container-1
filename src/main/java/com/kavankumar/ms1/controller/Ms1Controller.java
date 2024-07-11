@@ -56,7 +56,7 @@ public class Ms1Controller {
             if (!isCSVFormat(STORAGE_LOCATION + request.getFile(), ',')) {
                 HashMap<String, Object> map = new HashMap<>();
                 map.put("file", request.getFile());
-                map.put("error", "Input file not in CSV format.");
+                map.put("error", "Invalid CSV format.");
                 return map;
             }
             RestTemplate restTemplate = new RestTemplate();
