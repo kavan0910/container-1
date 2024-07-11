@@ -23,7 +23,7 @@ public class Ms1Controller {
 
     @PostMapping("/store-file")
     public Map<String, String> storeFile(@RequestBody Request request) {
-        final String STORAGE_LOCATION = "/app/kavan/files/";
+        final String STORAGE_LOCATION = "./kavan/files/";
         if (request.getFile() == null) {
             HashMap<String, String> map = new HashMap<>();
             map.put("file", request.getFile());
@@ -49,7 +49,7 @@ public class Ms1Controller {
 
     @PostMapping("/calculate")
     public Map<String, Object> calculate(@RequestBody CalculateRequest request) {
-        final String STORAGE_LOCATION = "/app/kavan/files/";
+        final String STORAGE_LOCATION = "./kavan/files/";
 
         try {
             if(request.getFile() == null) {
