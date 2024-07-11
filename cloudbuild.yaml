@@ -13,16 +13,16 @@ steps:
   - 'push'
   - 'us-central1-docker.pkg.dev/kube-assignment-428815/cloud-k8s-repository/app-1'
 
-#- name: 'gcr.io/cloud-builders/kubectl'
-#  id: 'Delete existing resources'
-#  args:
-#    - 'delete'
-#    - '-f'
-#    - 'deployment.yaml'
-#    - '--ignore-not-found'
-#  env:
-#  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
-#  - 'CLOUDSDK_CONTAINER_CLUSTER=kube-cluster'
+- name: 'gcr.io/cloud-builders/kubectl'
+  id: 'Delete existing pod'
+  args:
+    - 'delete'
+    - 'pod'
+    - '-l'
+    - 'app = app-1'
+  env:
+  - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
+  - 'CLOUDSDK_CONTAINER_CLUSTER=kube-cluster'
 
 - name: 'gcr.io/cloud-builders/kubectl'
   id: 'Deploy app1'
