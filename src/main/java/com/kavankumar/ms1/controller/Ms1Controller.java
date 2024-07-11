@@ -45,6 +45,12 @@ public class Ms1Controller {
     @PostMapping("/calculate")
     public Map<String, Object> calculate(@RequestBody CalculateRequest request) {
         try {
+            if(request.getFile() == null){
+                HashMap<String, Object> map = new HashMap<>();
+                map.put("file", request.getFile());
+                map.put("error", "Invalid JSON input.");
+                return map;
+            }
             final String STORAGE_LOCATION = "/app/kavan/files/";
             BufferedReader csv_file = new BufferedReader(new FileReader(STORAGE_LOCATION+request.getFile()));
             if(!isCSVFormat(STORAGE_LOCATION+request.getFile(),',')){
@@ -54,14 +60,17 @@ public class Ms1Controller {
                 return map;
             }
             RestTemplate restTemplate = new RestTemplate();
-            Map<String, Object> response = restTemplate.postForObject("http://service-2:6000/sum", request, Map.class);
+            System.out.println(request);
+            System.out.println("Sending request to service-2.");
+            Map<String, Object> response = restTemplate.postForObject("https://service-2:6000/sum", request, Map.class);
+            System.out.println("Response from service-2: " + response);
             return response;
 
         }
         catch (Exception e) {
             Map<String, Object> map = new HashMap<>();
             map.put("file", request.getFile());
-            map.put("error", "Input file not in CSV format.");
+            map.put("error", "File not found.");
             return map;
         }
     }
