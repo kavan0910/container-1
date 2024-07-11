@@ -55,7 +55,7 @@ public class Ms1Controller {
             return new ResponseEntity<>(Map.of("file", fileName, "error", "File not found."), HttpStatus.NOT_FOUND);
         }
         RestTemplate restTemplate = new RestTemplate();
-        Map<String,Object> response = restTemplate.postForObject("http://localhost:6000/sum", request, Map.class);
+        Map<String,Object> response = restTemplate.postForObject("http://service-2:6000/sum", request, Map.class);
 
         return ResponseEntity.ok(response);
     }
