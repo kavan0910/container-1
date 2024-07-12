@@ -21,6 +21,7 @@ import org.springframework.web.client.RestTemplate;
 public class Ms1Controller {
 //    public Map<String, String> storeFile(@RequestBody Request request) {
 
+    // This is the api for storing the file.
     @PostMapping("/store-file")
     public Map<String, String> storeFile(@RequestBody Request request) {
         final String STORAGE_LOCATION = "./kavan/files/";
